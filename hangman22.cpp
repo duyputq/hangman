@@ -10,19 +10,21 @@
 using namespace std;
 
 const int MAX_BAD_GUESSES = 7;
-const char DATA_FILE[] = "D:\\Baitap\\Freshman2\\hangman\\1.txt";
 
-string chooseWord(const char* fileName); // hàm chọn từ  //pải lấy từ file
+
+string chooseWord(); // hàm chọn từ  //pải lấy từ file
 char readAGuess();    // hàm nhập vào input
 bool contains(const string& word, char guess); // hàm kiểm tra đúng sai từ nhập vào
 void updateGuessedWord(string& guessedWord, const string& word, char guess); // update hiển thị xuất hiện từ cần đoán
-
+char getButton();
 int main()
 {
 	srand(time(0));
-	string word = chooseWord(DATA_FILE); // chọn 1 từ từ file
+	char button;
+	while (true){
+	string word = chooseWord(); // chọn 1 từ từ file
 	if (word.length() < 1) {
-		cout << "Error reading vocabulary file " << DATA_FILE;
+		cout << "Error reading vocabulary file " ;
 		return -1;
 	}
 	cout << word<<endl;
@@ -39,7 +41,15 @@ int main()
 		}
 	} while (badGuesses.length() < MAX_BAD_GUESSES && word != guessedWord);
     displayFinalResult(badGuesses.length() < MAX_BAD_GUESSES, word);
-    system("pause");
+
+    cout << "Do you want to play this game again? (y/n)"<<endl;
+        button = getButton();
+        if (button == 'n'){
+            break;
+        }
+        system("cls");
+//    system("pause");
+	}
 	return 0;
 }
 
@@ -50,10 +60,27 @@ string getLowerCaseString(const string& s)
     return res;
 }
 
-string chooseWord(const char* fileName)
+int Picktopick(){
+    int n;
+    cout<<"Press 1 : Animal"<<endl;
+    cout<<"Press 2 : Fruit"<<endl;
+    cout<<"Press 3 : Job"<<endl;
+    cout<<"Press 4 : All Subjects"<<endl;
+    cout<<"Your choice is: ";
+    cin>>n;
+    return n;
+}
+
+string chooseWord()
 {
 	vector<string> wordList;
-	ifstream file(fileName);
+	int k = Picktopick  ()  ;
+    string path ;
+    if(k==1)path="animal.txt";
+    if(k==2)path="job.txt";
+    if(k==3)path="fruit.txt";
+    if(k==4)path="1.txt";
+	ifstream file(path);
   	if (file.is_open()) {
 	    string word;
 		while (file >> word) {
@@ -66,6 +93,9 @@ string chooseWord(const char* fileName)
     	return getLowerCaseString(wordList[randomIndex]);
 	} else return "";
 }
+
+
+
 
 char readAGuess()
 {
@@ -87,4 +117,20 @@ void updateGuessedWord(string& guessedWord, const string& word, char guess)
             guessedWord[i] = guess;
         }
     }
+}
+
+char getButton()
+{
+    char button;
+    while (true){
+        cout << "Your choice is: ";
+        cin >> button;
+        if (button == 'y' || button == 'n') break;
+        else{
+            cout << "Wrong button!" << endl
+                 << "Press y to continue" << endl
+                 << "Press n to quit the game" << endl;
+        }
+    }
+    return button;
 }
