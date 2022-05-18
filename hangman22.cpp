@@ -21,7 +21,9 @@ int main()
 {
 	srand(time(0));
 	char button;
+    int sum = 7;
 	while (true){
+
 	string word = chooseWord(); // chọn 1 từ từ file
 	if (word.length() < 1) {
 		cout << "Error reading vocabulary file " ;
@@ -30,7 +32,7 @@ int main()
 	cout << word<<endl;
 	string guessedWord = string(word.length(), '-');
 	string badGuesses = "";
-
+    system("cls");
 	do {
 		renderGame(guessedWord, badGuesses); // vẽ giá treo
 		char guess = readAGuess();   // nhập vào chữ đoán tiếp theo (input)
@@ -38,9 +40,10 @@ int main()
 			updateGuessedWord(guessedWord, word, guess);
 		else {
 			badGuesses += guess;        // từ đoán sai +1
+			sum = sum -1;
 		}
 	} while (badGuesses.length() < MAX_BAD_GUESSES && word != guessedWord);
-    displayFinalResult(badGuesses.length() < MAX_BAD_GUESSES, word);
+    displayFinalResult(badGuesses.length() < MAX_BAD_GUESSES, word, sum);
 
     cout << "Do you want to play this game again? (y/n)"<<endl;
         button = getButton();
