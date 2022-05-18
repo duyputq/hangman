@@ -10,8 +10,8 @@
 using namespace std;
 
 const int MAX_BAD_GUESSES = 7;
-
 const char DATA_FILE[] = "D:\\Baitap\\Freshman2\\hangman\\1.txt";
+
 string chooseWord(const char* fileName); // hàm chọn từ  //pải lấy từ file
 char readAGuess();    // hàm nhập vào input
 bool contains(const string& word, char guess); // hàm kiểm tra đúng sai từ nhập vào
@@ -25,7 +25,7 @@ int main()
 		cout << "Error reading vocabulary file " << DATA_FILE;
 		return -1;
 	}
-	cout << word;
+	cout << word<<endl;
 	string guessedWord = string(word.length(), '-');
 	string badGuesses = "";
 
