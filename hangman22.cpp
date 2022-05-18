@@ -65,18 +65,32 @@ string getLowerCaseString(const string& s)
 
 int Picktopick(){
     int n;
+    cout<<"Choose subject!"<<endl;
     cout<<"Press 1 : Animal"<<endl;
     cout<<"Press 2 : Fruit"<<endl;
     cout<<"Press 3 : Job"<<endl;
     cout<<"Press 4 : All Subjects"<<endl;
     cout<<"Your choice is: ";
     cin>>n;
+    cout << endl;
     return n;
 }
 
+int ChooseLevel(){
+   int n;
+   cout<<"Choose level!"<<endl;
+   cout<<"Press 1 : Easy"<<endl;
+    cout<<"Press 2 : Normal"<<endl;
+    cout<<"Press 3 : Hard"<<endl;
+    cout <<"Your choice is: ";
+    cin>>n;
+   return n;
+}
+
+
 string chooseWord()
 {
-	vector<string> wordList;
+	vector <string> WORD_LIST;
 	int k = Picktopick  ()  ;
     string path ;
     if(k==1)path="animal.txt";
@@ -87,17 +101,46 @@ string chooseWord()
   	if (file.is_open()) {
 	    string word;
 		while (file >> word) {
-            wordList.push_back(word);
+            WORD_LIST.push_back(word);
         }
     	file.close();
   	}
-  	if (wordList.size() > 0) {
-  		int randomIndex = rand() % wordList.size();
-    	return getLowerCaseString(wordList[randomIndex]);
-	} else return "";
+    int z = ChooseLevel () ;
+     if(z==1){
+    srand(time(NULL));
+    int RandomIndex= rand() % WORD_LIST.size();
+    while(WORD_LIST[RandomIndex].length()>3){
+            srand(time(NULL));
+     RandomIndex= rand() % WORD_LIST.size();
+    }
+    getLowerCaseString(WORD_LIST[RandomIndex]);
+
+        return WORD_LIST[RandomIndex];
+     }
+     if(z==2){
+    srand(time(NULL));
+    int RandomIndex= rand() % WORD_LIST.size();
+    while(WORD_LIST[RandomIndex].length()>4||WORD_LIST[RandomIndex].length()<=3){
+            srand(time(NULL));
+     RandomIndex= rand() % WORD_LIST.size();
+    }
+    getLowerCaseString(WORD_LIST[RandomIndex]);
+
+        return WORD_LIST[RandomIndex];
+     }
+     if(z==3){
+    srand(time(NULL));
+    int RandomIndex= rand() % WORD_LIST.size();
+    while(WORD_LIST[RandomIndex].length()<5){
+            srand(time(NULL));
+     RandomIndex= rand() % WORD_LIST.size();
+    }
+    getLowerCaseString(WORD_LIST[RandomIndex]);
+
+        return WORD_LIST[RandomIndex];
+     }
+
 }
-
-
 
 
 char readAGuess()
